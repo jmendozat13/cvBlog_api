@@ -1,4 +1,7 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from 'mongoose'
+import ExperienceSection from './ExperienceSection'
+
+model['ExperienceSection'] = ExperienceSection
 
 const experienceSchema = Schema({
     profileId: {
@@ -39,7 +42,8 @@ const experienceSchema = Schema({
     order: {
         type: Number,
         required: true
-    }
+    },
+    experienceSection: [model["ExperienceSection"].schema]
 })
 
 export default model('Experience', experienceSchema)

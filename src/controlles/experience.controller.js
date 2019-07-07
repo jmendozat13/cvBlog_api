@@ -1,4 +1,5 @@
 import Experience from '../models/Experience'
+import ExperienceSection from '../models/ExperienceSection'
 import Profile from '../models/Profile'
 
 export async function getAllExperienceByProfileId(req, res) {
@@ -23,8 +24,9 @@ export async function saveExperience(req, res) {
         endDate,
         present,
         description,
-        order } = req.body
-    console.log(req.body)
+        order,
+        experienceSection } = req.body
+
     try {
         const _experience = new Experience({
             profileId: profileId,
@@ -36,6 +38,19 @@ export async function saveExperience(req, res) {
             description,
             order
         })
+
+        experienceSection.forEach(section => {
+            const _experienceSection = new ExperienceSection({
+                experienceId: _experience._id,
+                name: section.name,
+                type: section.type
+            })
+            section.items.forEach(item => {
+                _experienceSection.items.push(item)
+            })
+            _experience.experienceSection.push(_experienceSection)
+        })
+
         const _saveExperience = await _experience.save()
         res.json(_saveExperience)
     } catch (err) {
