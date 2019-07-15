@@ -12,6 +12,8 @@ var _ExperienceSection = _interopRequireDefault(require("../models/ExperienceSec
 
 var _Profile = _interopRequireDefault(require("../models/Profile"));
 
+var _Company = _interopRequireDefault(require("../models/Company"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -81,7 +83,7 @@ function _saveExperience2() {
   _saveExperience2 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(req, res) {
-    var _req$body, profileId, position, company, startDate, endDate, present, description, order, experienceSection, _experience, _saveExperience;
+    var _req$body, profileId, position, company, startDate, endDate, present, description, order, experienceSection, _company, _experience, _saveExperience;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -89,15 +91,20 @@ function _saveExperience2() {
           case 0:
             _req$body = req.body, profileId = _req$body.profileId, position = _req$body.position, company = _req$body.company, startDate = _req$body.startDate, endDate = _req$body.endDate, present = _req$body.present, description = _req$body.description, order = _req$body.order, experienceSection = _req$body.experienceSection;
             _context2.prev = 1;
+            _company = new _Company["default"]({
+              name: company.name,
+              description: company.description,
+              website: company.website
+            });
             _experience = new _Experience["default"]({
               profileId: profileId,
               position: position,
-              company: company,
               startDate: startDate,
               endDate: endDate,
               present: present,
               description: description,
-              order: order
+              order: order,
+              company: _company
             });
             experienceSection.forEach(function (section) {
               var _experienceSection = new _ExperienceSection["default"]({
@@ -112,29 +119,29 @@ function _saveExperience2() {
 
               _experience.experienceSection.push(_experienceSection);
             });
-            _context2.next = 6;
+            _context2.next = 7;
             return _experience.save();
 
-          case 6:
+          case 7:
             _saveExperience = _context2.sent;
             res.json(_saveExperience);
-            _context2.next = 14;
+            _context2.next = 15;
             break;
 
-          case 10:
-            _context2.prev = 10;
+          case 11:
+            _context2.prev = 11;
             _context2.t0 = _context2["catch"](1);
             console.log(_context2.t0);
             res.status(500).json({
               message: _context2.t0
             });
 
-          case 14:
+          case 15:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 10]]);
+    }, _callee2, null, [[1, 11]]);
   }));
   return _saveExperience2.apply(this, arguments);
 }

@@ -9,9 +9,12 @@ var _mongoose = require("mongoose");
 
 var _ExperienceSection = _interopRequireDefault(require("./ExperienceSection"));
 
+var _Company = _interopRequireDefault(require("./Company"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 _mongoose.model['ExperienceSection'] = _ExperienceSection["default"];
+_mongoose.model['Company'] = _Company["default"];
 var experienceSchema = (0, _mongoose.Schema)({
   profileId: {
     type: _mongoose.Schema.Types.ObjectId,
@@ -21,12 +24,6 @@ var experienceSchema = (0, _mongoose.Schema)({
     type: String,
     max: 250,
     min: 10,
-    required: true
-  },
-  company: {
-    type: String,
-    max: 250,
-    min: 3,
     required: true
   },
   startDate: {
@@ -52,6 +49,7 @@ var experienceSchema = (0, _mongoose.Schema)({
     type: Number,
     required: true
   },
+  company: _mongoose.model["Company"].schema,
   experienceSection: [_mongoose.model["ExperienceSection"].schema]
 });
 
