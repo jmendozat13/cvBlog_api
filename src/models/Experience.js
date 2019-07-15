@@ -1,7 +1,9 @@
 import { Schema, model } from 'mongoose'
 import ExperienceSection from './ExperienceSection'
+import Company from './Company'
 
 model['ExperienceSection'] = ExperienceSection
+model['Company'] = Company
 
 const experienceSchema = Schema({
     profileId: {
@@ -12,12 +14,6 @@ const experienceSchema = Schema({
         type: String,
         max: 250,
         min: 10,
-        required: true
-    },
-    company: {
-        type: String,
-        max: 250,
-        min: 3,
         required: true
     },
     startDate: {
@@ -43,6 +39,7 @@ const experienceSchema = Schema({
         type: Number,
         required: true
     },
+    company: model["Company"].schema,
     experienceSection: [model["ExperienceSection"].schema]
 })
 

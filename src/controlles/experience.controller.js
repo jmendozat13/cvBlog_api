@@ -1,6 +1,7 @@
 import Experience from '../models/Experience'
 import ExperienceSection from '../models/ExperienceSection'
 import Profile from '../models/Profile'
+import Company from '../models/Company'
 
 export async function getAllExperienceByProfileId(req, res) {
     const { profileId } = req.params
@@ -28,15 +29,21 @@ export async function saveExperience(req, res) {
         experienceSection } = req.body
 
     try {
+         const _company = new Company({
+            name: company.name,
+            description: company.description,
+            website: company.website
+        })
+
         const _experience = new Experience({
             profileId: profileId,
             position,
-            company,
             startDate,
             endDate,
             present,
             description,
-            order
+            order,
+            company: _company
         })
 
         experienceSection.forEach(section => {
