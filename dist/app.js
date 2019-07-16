@@ -13,8 +13,6 @@ var _mongoose = require("mongoose");
 
 var _cors = _interopRequireDefault(require("cors"));
 
-var _path = require("path");
-
 require("dotenv/config");
 
 var _index = _interopRequireDefault(require("./routes/index"));
@@ -22,6 +20,8 @@ var _index = _interopRequireDefault(require("./routes/index"));
 var _profile = _interopRequireDefault(require("./routes/profile"));
 
 var _experience = _interopRequireDefault(require("./routes/experience"));
+
+var _skill = _interopRequireDefault(require("./routes/skill"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -44,6 +44,7 @@ app.use((0, _cors["default"])());
 app.use(_index["default"]);
 app.use('/api/profile/', _profile["default"]);
 app.use('/api/experience/', _experience["default"]);
+app.use('/api/skill/', _skill["default"]);
 app.use(function (req, res, next) {
   res.status(404).json({
     message: "Not Found"
